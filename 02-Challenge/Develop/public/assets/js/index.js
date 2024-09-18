@@ -136,6 +136,12 @@ const renderNoteList = async (notes) => {
 
   let noteListItems = [];
 
+  fetch('/api/notes')
+  .then(response => response.json())
+  .then(data => {
+    // Handle the retrieved notes
+  });
+
   // Returns HTML element with or without a delete button
   const createLi = (text, delBtn = true) => {
     const liEl = document.createElement('li');
@@ -192,3 +198,5 @@ if (window.location.pathname === '/notes') {
 }
 
 getAndRenderNotes();
+
+
