@@ -105,10 +105,11 @@ const handleNoteDelete = (e) => {
 const handleNoteView = (e) => {
   e.preventDefault();
   activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
+  console.log('activeNote', activeNote);
   renderActiveNote();
 };
 
-// Sets the activeNote to and empty object and allows the user to enter a new note
+// Sets the activeNote to an empty object and allows the user to enter a new note
 const handleNewNoteView = (e) => {
   activeNote = {};
   show(clearBtn);
@@ -136,11 +137,6 @@ const renderNoteList = async (notes) => {
 
   let noteListItems = [];
 
-  fetch('/api/notes')
-  .then(response => response.json())
-  .then(data => {
-    // Handle the retrieved notes
-  });
 
   // Returns HTML element with or without a delete button
   const createLi = (text, delBtn = true) => {

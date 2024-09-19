@@ -42,6 +42,7 @@ app.post('/api/notes', (req, res) => {
         }
 
         const notes = JSON.parse(data);
+        newNote.id = notes.length+1;
         notes.push(newNote);
 
         fs.writeFile(path.join(__dirname, 'db/db.json'), JSON.stringify(notes, null, 2), (err) => {
@@ -57,6 +58,11 @@ app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
+// app.delete
+// Grab the note ID from the URL and do :noteID
+// Grab the notes from the db.json
+// Filter out by note ID, notes.flter(callback function) 
+// Rewrite the note.json
 
 
 
