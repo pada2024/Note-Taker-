@@ -42,7 +42,7 @@ app.post('/api/notes', (req, res) => {
         }
 
         const notes = JSON.parse(data);
-        newNote.id = notes.length+1;
+        newNote.id = notes.length + 1;
         notes.push(newNote);
 
         fs.writeFile(path.join(__dirname, 'db/db.json'), JSON.stringify(notes, null, 2), (err) => {
@@ -54,65 +54,45 @@ app.post('/api/notes', (req, res) => {
     });
 });
 
+// app.delete
+// Grab the note ID from the URL and do :noteID
+// Grab the notes from the db.json
+// Filter out by note ID, notes.flter(callback function)
+// Rewrite the note.json
+
+// DELETE Route for a specific Note
+// localHost/api/notes/5
+app.delete('/api/notes/:noteId', (req, res) => {
+    const noteId = req.params.noteId;
+    console.log('noteID', noteId);
+
+    fs.readFile(path.join(__dirname, 'db/db.json'), 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).send('Error reading database file.');
+        }
+        const notes = JSON.parse(data);
+
+        // Make a new array of all notes except the one with the ID provided in the URL
+        const filteredNotes = notes.filter((note) => note.id !== noteId);
+
+        // Save that array to the filesystem
+        fs.writeFile(path.join(__dirname, 'db/db.json'), JSON.stringify(filteredNotes, null, 2), (err) => {
+            if (err) {
+                return res.status(500).send('Error writing to database file.');
+            }
+            res.status(201).json(noteId);
+        });
+    });
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-// app.delete
-// Grab the note ID from the URL and do :noteID
-// Grab the notes from the db.json
-// Filter out by note ID, notes.flter(callback function) 
-// Rewrite the note.json
 
 
 
 
 
-//   const express = require('express');
-// const fs = require('fs');
-// const path = require('path');
 
-// const app = express();
-// const PORT = process.env.PORT || 3001;
 
-// // Middleware to parse JSON
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-
-// // Path to the db.json file
-// const dbPath = path.join(__dirname, 'db.json');
-
-// // GET route to retrieve notes
-// app.get('/api/notes', (req, res) => {
-//     fs.readFile(dbPath, 'utf8', (err, data) => {
-//         if (err) {
-//             return res.status(500).json({ error: 'Failed to read notes' });
-//         }
-//         res.json(JSON.parse(data));
-//     });
-// });
-
-// // POST route to add a new note
-// app.post('/api/notes', (req, res) => {
-//     const newNote = req.body;
-
-//     fs.readFile(dbPath, 'utf8', (err, data) => {
-//         if (err) {
-//             return res.status(500).json({ error: 'Failed to read notes' });
-//         }
-//         const notes = JSON.parse(data);
-//         notes.push(newNote);
-
-//         fs.writeFile(dbPath, JSON.stringify(notes, null, 2), (err) => {
-//             if (err) {
-//                 return res.status(500).json({ error: 'Failed to save note' });
-//             }
-//             res.status(201).json(newNote);
-//         });
-//     });
-// });
-
-// // Start the server
-// app.listen(PORT, () => {
-//     console.log(`Server is running on http://localhost:${PORT}`);
-// });
