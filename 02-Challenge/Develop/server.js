@@ -63,17 +63,19 @@ app.post('/api/notes', (req, res) => {
 // DELETE Route for a specific Note
 // localHost/api/notes/5
 app.delete('/api/notes/:noteId', (req, res) => {
-    const noteId = req.params.noteId;
-    console.log('noteID', noteId);
+    const noteId = Number(req.params.noteId);
+    console.log('noteID', noteId, typeof noteId);
 
     fs.readFile(path.join(__dirname, 'db/db.json'), 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Error reading database file.');
         }
         const notes = JSON.parse(data);
+        console.log('notes', notes[0].id, typeof notes[0].id);
 
         // Make a new array of all notes except the one with the ID provided in the URL
         const filteredNotes = notes.filter((note) => note.id !== noteId);
+        console.log('filtered Notes', filteredNotes);
 
         // Save that array to the filesystem
         fs.writeFile(path.join(__dirname, 'db/db.json'), JSON.stringify(filteredNotes, null, 2), (err) => {
