@@ -1,7 +1,12 @@
 [
   {
-    "title": "Another Note",
-    "text": "Oh yeah, this is the ultimate note! \n",
-    "id": 3
+    "title": "New Note",
+    "text": "3rd times the charm\n",
+    "id": 2
+  },
+  {
+    "title": "Test",
+    "text": "Tester",
+    "id": 2
   }
 ]

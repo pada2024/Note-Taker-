@@ -1,7 +1,6 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-// const api = require('./routes/index.js');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -54,11 +53,6 @@ app.post('/api/notes', (req, res) => {
     });
 });
 
-// app.delete
-// Grab the note ID from the URL and do :noteID
-// Grab the notes from the db.json
-// Filter out by note ID, notes.flter(callback function)
-// Rewrite the note.json
 
 // DELETE Route for a specific Note
 // localHost/api/notes/5
